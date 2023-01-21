@@ -1,21 +1,36 @@
 import { Contact } from 'components/Contact/Contact';
-import { useSelector } from 'react-redux';
-import { getContacts } from 'redux/contacts/contacts-selectors';
-import { getFilter } from 'redux/filter/filter-selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectContacts,
+  selectIsLoading,
+} from 'redux/contacts/contacts-selectors';
+import { selectFilter } from 'redux/filter/filter-selectors';
+import { useEffect } from 'react';
+import { Loader } from 'components/Loader/Loader';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
 import css from './ContactList.module.css';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
+  const isLoading = useSelector(selectIsLoading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const filtredContacts = contacts.filter(({ name }) =>
     name.toLowerCase().includes(filter)
   );
   return (
+    <>
+    {isLoading && <Loader />}
     <ul className={css.contactList}>
-      {filtredContacts.map(({ name, number, id }) => {
-        return <Contact key={id} id={id} name={name} number={number} />;
+      {filtredContacts.map(({ name, phone, id }) => {
+        return <Contact key={id} id={id} name={name} number={phone} />;
       })}
     </ul>
+    </>
   );
 };
