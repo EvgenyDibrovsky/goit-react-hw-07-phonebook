@@ -4,10 +4,10 @@ import {
   selectContacts,
   selectIsLoading,
 } from 'redux/contacts/contacts-selectors';
-import { selectFilter } from 'redux/filter/filter-selectors';
 import { useEffect } from 'react';
-import { Loader } from 'components/Loader/Loader';
+import { selectFilter } from 'redux/filter/filter-selectors';
 import { fetchContacts } from 'redux/contacts/contacts-operations';
+import { Loader } from 'components/Loader/Loader';
 import css from './ContactList.module.css';
 
 export const ContactList = () => {
@@ -25,12 +25,12 @@ export const ContactList = () => {
   );
   return (
     <>
-    {isLoading && <Loader />}
-    <ul className={css.contactList}>
-      {filtredContacts.map(({ name, phone, id }) => {
-        return <Contact key={id} id={id} name={name} number={phone} />;
-      })}
-    </ul>
+      {isLoading && <Loader />}
+      <ul className={css.contactList}>
+        {filtredContacts.map(({ name, phone, id }) => {
+          return <Contact key={id} id={id} name={name} number={phone} />;
+        })}
+      </ul>
     </>
   );
 };
