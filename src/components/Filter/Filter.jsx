@@ -13,7 +13,7 @@ export const Filter = () => {
         name="filter"
         placeholder="Enter Name"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        onChange={event => dispatch(setFilterValue(event.target.value))}
+        onChange={e => dispatch(setFilterValue(e.target.value))}
       />
     </div>
   );

@@ -16,8 +16,8 @@ export const ContactForm = () => {
     name === 'name' ? setName(value) : setNumber(value);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault();
 
     const isExist = contacts.find(
       contacts => contacts.name.toLowerCase() === name.toLowerCase()
