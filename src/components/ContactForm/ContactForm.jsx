@@ -16,11 +16,11 @@ export const ContactForm = () => {
     name === 'name' ? setName(value) : setNumber(value);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
 
-    const isExist = contacts.find(
-      contacts => contacts.name.toLowerCase() === name.toLowerCase()
+    const isExist = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     if (isExist) {
@@ -29,7 +29,7 @@ export const ContactForm = () => {
       return;
     }
 
-    const contact = { name, number};
+    const contact = { name, number };
     dispatch(addContact(contact));
     reset();
   };
